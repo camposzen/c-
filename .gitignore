@@ -1,3 +1,6 @@
+.DS_Store
+./merkelex/merkelex
+
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
