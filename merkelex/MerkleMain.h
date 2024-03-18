@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "OrderBookEntry.h"
+#include "CSVReader.h"
 
 class MerkleMain
 {

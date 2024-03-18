@@ -1,7 +1,8 @@
 #include "MerkleMain.h"
 
 MerkleMain::MerkleMain()
-{}
+{
+}
 
 void MerkleMain::init()
 {
@@ -15,9 +16,9 @@ void MerkleMain::init()
     }
 }
 
-void MerkleMain::loadOrderBook() {
-    this->orders.push_back(OrderBookEntry{1000, 0.02, "2024/03/16 17:05:24.112233", "BTC/USDT", OrderBookType::bid});
-    this->orders.push_back(OrderBookEntry{2000, 0.02, "2024/03/15 17:05:24.112233", "BTC/USDT", OrderBookType::bid});
+void MerkleMain::loadOrderBook()
+{
+    this->orders = CSVReader::readFile("orders.csv");
 }
 
 void MerkleMain::printHelp()
@@ -27,7 +28,22 @@ void MerkleMain::printHelp()
 
 void MerkleMain::printMarkeStat()
 {
-    std::cout << "There are " << this->orders.size() << " entries" << std::endl;
+    std::cout << "Orderbook contains: " << this->orders.size() << " entries" << std::endl;
+    unsigned int bids = 0;
+    unsigned int asks = 0;
+    for (OrderBookEntry &o : this->orders)
+    {
+        if (o.orderType == OrderBookType::ask)
+        {
+            ++asks;
+        }
+        else if (o.orderType == OrderBookType::bid)
+        {
+            ++bids;
+        }
+    }
+    std::cout << "Total asks: " << asks << std::endl;
+    std::cout << "Total bids:" << bids << std::endl;
 }
 
 void MerkleMain::entertOffer()
@@ -53,6 +69,8 @@ void MerkleMain::nextIteraction()
 
 void MerkleMain::printMenu()
 {
+    std::cout << "=========================== " << std::endl;
+
     // 1 print help
     std::cout << "1: Help" << std::endl;
 
